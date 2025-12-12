@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import EraserCanvas from './components/EraserCanvas'
 import Home from './pages/Home'
 import About from './pages/About'

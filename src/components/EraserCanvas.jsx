@@ -11,11 +11,6 @@ const EraserCanvas = () => {
     const video = videoRef.current
     if (!canvas) return
 
-    // Ensure video plays
-    if (video) {
-      video.play().catch(err => console.log('Video autoplay prevented:', err))
-    }
-
     const ctx = canvas.getContext('2d')
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
@@ -30,6 +25,39 @@ const EraserCanvas = () => {
 
     // Expose reset function globally
     window.resetEraser = fillCanvas
+
+    // Define video event handlers at higher scope
+    let handleVideoEnd = null
+    let handleVideoPause = null
+
+    // Ensure video plays and loops
+    if (video) {
+      const playPromise = video.play()
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.log('Video autoplay prevented:', err)
+          // Retry on user interaction
+          document.addEventListener('click', () => video.play(), { once: true })
+        })
+      }
+
+      // Ensure video keeps looping
+      handleVideoEnd = () => {
+        video.currentTime = 0
+        video.play()
+      }
+      video.addEventListener('ended', handleVideoEnd)
+
+      // Ensure video doesn't pause
+      handleVideoPause = () => {
+        if (video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2) {
+          // Video is playing, do nothing
+        } else {
+          video.play().catch(() => {})
+        }
+      }
+      video.addEventListener('pause', handleVideoPause)
+    }
 
     const handleResize = () => {
       const tempCanvas = document.createElement('canvas')
@@ -46,9 +74,14 @@ const EraserCanvas = () => {
     }
 
     window.addEventListener('resize', handleResize)
+    
     return () => {
       window.removeEventListener('resize', handleResize)
       delete window.resetEraser
+      if (video && handleVideoEnd && handleVideoPause) {
+        video.removeEventListener('ended', handleVideoEnd)
+        video.removeEventListener('pause', handleVideoPause)
+      }
     }
   }, [])
 

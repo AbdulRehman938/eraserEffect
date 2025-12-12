@@ -12,10 +12,11 @@ const About = () => {
   return (
     <motion.div 
       className="relative min-h-screen bg-transparent text-white select-none"
-      initial={{ opacity: 0, x: 300 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -300 }}
-      transition={{ type: "tween", duration: 0.7, ease: "easeInOut", delay: 0.2 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      style={{ willChange: 'opacity', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 25, pointerEvents: 'none' }}
     >
       {/* Header */}
       <header className="relative z-40 bg-gradient-to-b from-black/50 to-transparent p-6 pointer-events-auto">
