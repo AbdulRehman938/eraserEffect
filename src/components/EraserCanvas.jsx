@@ -8,15 +8,28 @@ const EraserCanvas = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current
+    const video = videoRef.current
     if (!canvas) return
+
+    // Ensure video plays
+    if (video) {
+      video.play().catch(err => console.log('Video autoplay prevented:', err))
+    }
 
     const ctx = canvas.getContext('2d')
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
 
     // Fill canvas with black
-    ctx.fillStyle = '#000000'
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    const fillCanvas = () => {
+      ctx.globalCompositeOperation = 'source-over'
+      ctx.fillStyle = '#000000'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+    }
+    fillCanvas()
+
+    // Expose reset function globally
+    window.resetEraser = fillCanvas
 
     const handleResize = () => {
       const tempCanvas = document.createElement('canvas')
@@ -33,7 +46,10 @@ const EraserCanvas = () => {
     }
 
     window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      delete window.resetEraser
+    }
   }, [])
 
   const getPos = (e, rect) => {
@@ -125,22 +141,23 @@ const EraserCanvas = () => {
       <video
         ref={videoRef}
         className="fixed top-0 left-0 w-screen h-screen object-cover z-10"
-        src="https://cdn.pixabay.com/video/2021/07/25/82663-580974605_large.mp4"
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
-        webkit-playsinline="true"
-      />
+      >
+        <source src="https://cdn.pixabay.com/video/2021/07/25/82663-580974605_large.mp4" type="video/mp4" />
+      </video>
 
       {/* Black Cover Canvas */}
       <canvas
         ref={canvasRef}
-        className="fixed top-0 left-0 z-20 pointer-events-auto"
+        className="fixed top-0 left-0 z-20 pointer-events-auto cursor-crosshair touch-none"
         style={{ width: '100vw', height: '100vh' }}
         onMouseDown={startDrawing}
         onMouseUp={stopDrawing}
+        onMouseLeave={stopDrawing}
         onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
         onTouchStart={startDrawing}

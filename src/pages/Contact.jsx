@@ -1,20 +1,42 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const Contact = () => {
+  const handleReset = () => {
+    if (window.resetEraser) {
+      window.resetEraser()
+    }
+  }
+
   return (
-    <div className="relative min-h-screen bg-transparent text-white select-none">
+    <motion.div 
+      className="relative min-h-screen bg-transparent text-white select-none"
+      initial={{ opacity: 0, x: 300 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -300 }}
+      transition={{ type: "tween", duration: 0.7, ease: "easeInOut", delay: 0.2 }}
+    >
       {/* Header */}
       <header className="relative z-40 bg-gradient-to-b from-black/50 to-transparent p-6 pointer-events-auto">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-white text-2xl font-black" style={{ fontFamily: 'Belleza, sans-serif' }}>
+          <Link to="/" className="text-white text-2xl font-black hover:text-gray-300 transition" style={{ fontFamily: 'Belleza, sans-serif' }}>
             Eraser Effect
-          </h1>
-          <nav className="flex gap-6">
-            <Link to="/" className="text-white hover:text-gray-300 transition">Home</Link>
-            <Link to="/about" className="text-white hover:text-gray-300 transition">About</Link>
-            <Link to="/contact" className="text-white hover:text-gray-300 transition">Contact</Link>
-          </nav>
+          </Link>
+          <div className="flex items-center gap-6">
+            <button 
+              onClick={handleReset}
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition backdrop-blur-sm"
+              style={{ fontFamily: 'Belleza, sans-serif' }}
+            >
+              Reset
+            </button>
+            <nav className="flex gap-6">
+              <Link to="/" className="text-white hover:text-gray-300 transition">Home</Link>
+              <Link to="/about" className="text-white hover:text-gray-300 transition">About</Link>
+              <Link to="/contact" className="text-white hover:text-gray-300 transition">Contact</Link>
+            </nav>
+          </div>
         </div>
       </header>
 
@@ -59,7 +81,7 @@ const Contact = () => {
           </div>
         </div>
       </footer>
-    </div>
+    </motion.div>
   )
 }
 
