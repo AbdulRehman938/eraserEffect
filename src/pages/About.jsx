@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Home = () => {
+const About = () => {
   return (
-    <div className="relative w-full min-h-screen overflow-hidden select-none">
+    <div className="relative min-h-screen bg-transparent text-white select-none">
       {/* Header */}
-      <header className="absolute top-0 left-0 right-0 z-40 bg-gradient-to-b from-black/50 to-transparent p-6 pointer-events-auto">
+      <header className="relative z-40 bg-gradient-to-b from-black/50 to-transparent p-6 pointer-events-auto">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <h1 className="text-white text-2xl font-black" style={{ fontFamily: 'Belleza, sans-serif' }}>
             Eraser Effect
@@ -18,18 +18,26 @@ const Home = () => {
         </div>
       </header>
 
-      {/* Lorem Text */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none text-center">
-        <p className="text-white text-5xl font-black mb-4" style={{ fontFamily: 'Belleza, sans-serif' }}>
-          Erase me to see the video
-        </p>
-        <p className="text-white text-xl" style={{ fontFamily: 'Belleza, sans-serif' }}>
-          you can hold and drag your mouse on empty black area to erase the black cover
-        </p>
-      </div>
+      {/* Content */}
+      <main className="relative z-30 max-w-4xl mx-auto px-6 py-20 pointer-events-none">
+        <h2 className="text-5xl font-black mb-8" style={{ fontFamily: 'Belleza, sans-serif' }}>
+          About Eraser Effect
+        </h2>
+        <div className="space-y-6 text-lg">
+          <p>
+            Welcome to Eraser Effect, an interactive web experience that combines creative design with engaging user interaction.
+          </p>
+          <p>
+            Our project demonstrates the power of modern web technologies, featuring a unique eraser reveal effect that allows users to uncover hidden content through intuitive mouse gestures.
+          </p>
+          <p>
+            Built with React, Tailwind CSS, and HTML5 Canvas, this project showcases the possibilities of creative web development.
+          </p>
+        </div>
+      </main>
 
       {/* Footer */}
-      <footer className="absolute bottom-0 left-0 right-0 z-40 bg-gradient-to-t from-black/50 to-transparent p-6 pointer-events-auto">
+      <footer className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-t from-black/50 to-transparent p-6 pointer-events-auto">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <p className="text-white text-sm" style={{ fontFamily: 'Belleza, sans-serif' }}>
             © 2025 Eraser Effect. All rights reserved.
@@ -44,4 +52,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default About
