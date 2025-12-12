@@ -124,7 +124,7 @@ const Home = () => {
   }
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden">
+    <div className="relative w-full min-h-screen overflow-hidden select-none">
       {/* Header */}
       <header className="absolute top-0 left-0 right-0 z-40 bg-gradient-to-b from-black/50 to-transparent p-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -158,6 +158,8 @@ const Home = () => {
         muted
         loop
         playsInline
+        preload="auto"
+        webkit-playsinline="true"
       />
 
       {/* Black Cover Canvas */}
