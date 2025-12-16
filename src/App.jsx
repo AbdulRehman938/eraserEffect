@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import EraserCanvas from './components/EraserCanvas'
+import Snowflakes from './components/Snowflakes'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
@@ -27,6 +28,7 @@ function App() {
   return (
     <BrowserRouter>
       <EraserCanvas />
+      <Snowflakes />
       <AnimatedRoutes />
     </BrowserRouter>
   )
